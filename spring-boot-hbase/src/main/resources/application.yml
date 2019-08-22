@@ -1,0 +1,15 @@
+server:
+   port: 8911
+
+hbase:
+   fs.defaultFS: hdfs://ambari01:8020/
+   master: 172.19.19.37:16000
+   rootdir: hdfs://ambari01:8020/apps/hbase/data
+   zookeeper:
+      quorum: ambari01,ambari02,ambari03
+      property:
+         clientPort: 2181
+         
+zookeeper:
+   znode:
+      parent: /hbase-unsecure

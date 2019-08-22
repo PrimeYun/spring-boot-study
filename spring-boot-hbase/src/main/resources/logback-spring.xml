@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    
+    <!-- 项目名称 -->
+    <property name="project_name" value="spring-boot-hbase" />
+    
+    <!--定义日志文件的存储地址-->
+    <property name="log_dir" value="logs" />
+    
+    <property name="MaxHistory" value="30" />
+    <property name="MaxFileSize" value="50MB" />
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">        
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{60} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ERROR 级别 -->
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_dir}/${project_name}/error.log</file>
+        <!-- 过滤器，只打印ERROR级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${log_dir}/${project_name}/%d{yyyy-MM-dd}/ERROR.%d{yyyy-MM-dd}.%i.log.gz</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>${MaxHistory}</MaxHistory>
+            <!--日志文件最大的大小-->
+            <MaxFileSize>${MaxFileSize}</MaxFileSize>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{60} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+	<!-- WARN 级别 -->
+    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_dir}/${project_name}/warn.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${log_dir}/${project_name}/%d{yyyy-MM-dd}/WARN.%d{yyyy-MM-dd}.%i.log.gz</FileNamePattern>
+            <MaxHistory>${MaxHistory}</MaxHistory>
+            <MaxFileSize>${MaxFileSize}</MaxFileSize>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{60} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- INFO 级别 -->
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_dir}/${project_name}/info.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${log_dir}/${project_name}/%d{yyyy-MM-dd}/INFO.%d{yyyy-MM-dd}.%i.log.gz</FileNamePattern>
+            <MaxHistory>${MaxHistory}</MaxHistory>
+            <MaxFileSize>${MaxFileSize}</MaxFileSize>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{60} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <root>
+        <!-- 打印debug级别日志及以上级别日志 -->
+        <level value="INFO"/>
+        <!-- 控制台输出 -->
+        <appender-ref ref="console"/>
+        <!-- 文件输出 -->
+        <appender-ref ref="INFO"/>
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="WARN"/>
+    </root>
+    
+</configuration>
